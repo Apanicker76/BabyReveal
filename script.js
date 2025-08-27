@@ -1,19 +1,3 @@
-// REMOVE or COMMENT THIS:
-const revealDate = new Date("2025-08-27T12:10:00").getTime();
-
-// Update countdown every second
-const countdownElement = document.getElementById("countdown");
-setInterval(() => {
-    const now = new Date().getTime();
-    const distance = revealDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdownElement.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}, 1000);
 // Get reference to Firestore document
 const pollRef = window.db.collection("polls").doc("genderReveal");
 
@@ -49,5 +33,3 @@ pollRef.onSnapshot((docSnap) => {
     }
   }
 });
-
-
