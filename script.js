@@ -33,3 +33,4 @@ pollRef.onSnapshot((docSnap) => {
     }
   }
 });
+
