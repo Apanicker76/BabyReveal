@@ -1,5 +1,5 @@
-// Set the reveal date & time
-const revealDate = new Date("2025-09-01T18:00:00").getTime();
+// REMOVE or COMMENT THIS:
+const revealDate = new Date("2025-08-27T12:10:00").getTime();
 
 // Update countdown every second
 const countdownElement = document.getElementById("countdown");
@@ -49,4 +49,5 @@ pollRef.onSnapshot((docSnap) => {
     }
   }
 });
+
 
