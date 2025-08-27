@@ -163,7 +163,7 @@ button.girl:hover {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
-<!-- Firebase SDKs (compat versions) -->
+<!-- Firebase App and Firestore (Compat version for simplicity) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
@@ -177,11 +177,9 @@ button.girl:hover {
     appId: "1:29615502937:web:47d92b7229487e308ea348"
   };
 
-  // Initialize Firebase
+  // Initialize Firebase and Firestore
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-
-  // Make db globally available
   window.db = db;
 </script>
   <script src="script.js"></script>
