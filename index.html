@@ -159,30 +159,35 @@ button.girl:hover {
       requestAnimationFrame(animateConfetti);
     }
 
-    window.addEventListener('resize', () => {
+        window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
-<!-- Firebase SDK (correct order!) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  </script>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAGQaQf4GwCHs-gQZJ2aor0Q058Sh5v868",
-    authDomain: "baby-reveal-a80fd.firebaseapp.com",
-    projectId: "baby-reveal-a80fd",
-    storageBucket: "baby-reveal-a80fd.appspot.com",
-    messagingSenderId: "29615502937",
-    appId: "1:29615502937:web:47d92b7229487e308ea348"
-  };
+  <!-- ✅ Firebase SDK (correct order!) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAGQaQf4GwCHs-gQZJ2aor0Q058Sh5v868",
+      authDomain: "baby-reveal-a80fd.firebaseapp.com",
+      projectId: "baby-reveal-a80fd",
+      storageBucket: "baby-reveal-a80fd.appspot.com",
+      messagingSenderId: "29615502937",
+      appId: "1:29615502937:web:47d92b7229487e308ea348"
+    };
 
-  // Initialize Firestore
-  const db = firebase.firestore();
-  window.db = db;</script>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Firestore
+    const db = firebase.firestore();
+    window.db = db;
+  </script>
+
+  <!-- ✅ Your custom JavaScript file -->
   <script src="script.js"></script>
 </body>
 </html>
