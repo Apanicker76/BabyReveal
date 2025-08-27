@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Baby Reveal Countdown</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: url("images/background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: brightness(0.9);
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 20px; background: rgba(255,255,255,0.7); padding: 10px 20px; border-radius: 12px; }
+    #countdown { font-size: 2rem; margin: 20px 0; background: rgba(255,255,255,0.7); padding: 10px 20px; border-radius: 12px; }
+    #reveal {
+      display: none;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #e91e63;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.8);
+      padding: 15px 30px;
+      border-radius: 15px;
+    }
+    canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+#guess-buttons {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+}
+
+#guess-buttons p {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+#guess-buttons button {
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button.boy {
+  background-color: #2196f3;
+  color: white;
+}
+
+button.boy:hover {
+  background-color: #1976d2;
+}
+
+button.girl {
+  background-color: #e91e63;
+  color: white;
+}
+
+button.girl:hover {
+  background-color: #c2185b;
+}  
+</style>
+</head>
+<body>
+  <h1>Baby Reveal Countdown 🎉</h1>
+  <div id="countdown"></div>
+  <div id="reveal">It’s a GIRL 💖</div>
+<!-- Step 4: Voting buttons -->
+<div id="guess-buttons">
+  <p>Guess the baby’s gender! 👶</p>
+  <button id="boy-btn" class="boy">Boy 💙</button>
+  <button id="girl-btn" class="girl">Girl 💖</button>
+</div>
+
+<div id="poll-results" style="display:none;"></div>
+  <canvas id="confetti"></canvas>
+
+  <script>
+    // Set reveal date & time (YYYY-MM-DDTHH:MM:SS)
+    const revealDate = new Date("2025-08-27T12:10:00").getTime();
+
+    const countdownElement = document.getElementById("countdown");
+    const revealElement = document.getElementById("reveal");
+
+    const x = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = revealDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        clearInterval(x);
+        countdownElement.style.display = "none";
+        revealElement.style.display = "block";
+        startConfetti();
+      }
+    }, 1000);
+
+    // --- CONFETTI ANIMATION ---
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const confettiPieces = [];
+    const colors = ['#e91e63', '#2196f3', '#ffeb3b', '#4caf50'];
+
+    function Confetti() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height - canvas.height;
+      this.size = Math.random() * 10 + 5;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.speed = Math.random() * 3 + 2;
+      this.rotation = Math.random() * 360;
+    }
+
+    Confetti.prototype.update = function() {
+      this.y += this.speed;
+      if (this.y > canvas.height) {
+        this.y = -10;
+        this.x = Math.random() * canvas.width;
+      }
+    }
+
+    Confetti.prototype.draw = function() {
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.x, this.y, this.size, this.size);
+    }
+
+    function startConfetti() {
+      for (let i = 0; i < 150; i++) {
+        confettiPieces.push(new Confetti());
+      }
+      animateConfetti();
+    }
+
+    function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiPieces.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateConfetti);
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+<!-- Firebase SDK -->
+<!-- Firebase SDKs (no module) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAGQaQf4GwCHs-gQZJ2aor0Q058Sh5v868",
+    authDomain: "baby-reveal-a80fd.firebaseapp.com",
+    projectId: "baby-reveal-a80fd",
+    storageBucket: "baby-reveal-a80fd.appspot.com",
+    messagingSenderId: "29615502937",
+    appId: "1:29615502937:web:47d92b7229487e308ea348"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Attach Firestore functions to window for use in script.js
+  window.db = db;
+</script>
+  <script src="script.js"></script>
+</body>
+</html>
