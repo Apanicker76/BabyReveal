@@ -163,13 +163,11 @@ button.girl:hover {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
-<!-- Firebase SDK -->
-<!-- Firebase SDKs (no module) -->
+<!-- Firebase SDKs (compat versions) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
-  // Your Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAGQaQf4GwCHs-gQZJ2aor0Q058Sh5v868",
     authDomain: "baby-reveal-a80fd.firebaseapp.com",
@@ -183,7 +181,7 @@ button.girl:hover {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-  // Attach Firestore functions to window for use in script.js
+  // Make db globally available
   window.db = db;
 </script>
   <script src="script.js"></script>
