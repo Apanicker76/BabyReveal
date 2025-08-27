@@ -85,32 +85,37 @@ button.girl:hover {
 
 <div id="poll-results" style="display:none;"></div>
   <canvas id="confetti"></canvas>
+<!-- Background music during countdown -->
+<audio id="background-music" src="background.mp3" loop></audio>
+
+<!-- Music that plays on reveal -->
+<audio id="reveal-music" src="reveal.mp3"></audio>
 
   <script>
     // Set reveal date & time (YYYY-MM-DDTHH:MM:SS)
-    const revealDate = new Date("2025-08-27T15:10:00").getTime();
+   const revealDate = new Date("2025-08-27T14:30:00").getTime();
+const countdownElement = document.getElementById("countdown");
 
-    const countdownElement = document.getElementById("countdown");
-    const revealElement = document.getElementById("reveal");
+const countdownTimer = setInterval(() => {
+  const now = new Date().getTime();
+  const distance = revealDate - now;
 
-    const x = setInterval(function() {
-      const now = new Date().getTime();
-      const distance = revealDate - now;
+  if (distance > 0) {
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    countdownElement.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  } else {
+    clearInterval(countdownTimer);
+    countdownElement.style.display = "none";
+    backgroundMusic.pause();
+    revealMusic.play();
+    document.getElementById("reveal").style.display = "block";
+    startConfetti();
+  }
+}, 1000);
 
-      if (distance > 0) {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      } else {
-        clearInterval(x);
-        countdownElement.style.display = "none";
-        revealElement.style.display = "block";
-        startConfetti();
-      }
-    }, 1000);
 
     // --- CONFETTI ANIMATION ---
     const canvas = document.getElementById('confetti');
